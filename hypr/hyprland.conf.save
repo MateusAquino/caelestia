@@ -28,6 +28,7 @@ source = $hl/gestures.conf
 source = $hl/keybinds.conf
 
 # User configs
+exec-once = numlockx on
 exec = mkdir -p $cConf && touch -a $cConf/hypr-user.conf
 source = $cConf/hypr-user.conf
 

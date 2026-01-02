@@ -8,29 +8,25 @@ if status is-interactive
 
     # Better ls
     alias ls='eza --icons --group-directories-first -1'
+    alias gitrmb='git branch | cut -c 3- | gum choose --no-limit | xargs git branch -D'
+    alias cwd='pwd'
 
     # Abbrs
-    abbr lg 'lazygit'
-    abbr gd 'git diff'
-    abbr ga 'git add .'
-    abbr gc 'git commit -am'
-    abbr gl 'git log'
-    abbr gs 'git status'
-    abbr gst 'git stash'
-    abbr gsp 'git stash pop'
-    abbr gp 'git push'
-    abbr gpl 'git pull'
-    abbr gsw 'git switch'
-    abbr gsm 'git switch main'
-    abbr gb 'git branch'
-    abbr gbd 'git branch -d'
-    abbr gco 'git checkout'
-    abbr gsh 'git show'
+    abbr q 'exit'
+    abbr c 'clear'
+    abbr agit 'git add . && git'
+    abbr agitc 'git add . && git commit -m'
+    abbr gitam 'git commit --am'
+    abbr agitam 'git add . && git commit --am'
+    abbr mixes 'mix format && mix credo --strict & mix test'
+    abbr mixest 'mix format && mix credo --strict & mix translate'
 
     abbr l 'ls'
     abbr ll 'ls -l'
     abbr la 'ls -a'
     abbr lla 'ls -la'
+    abbr lsmnt 'duf'
+    abbr lss 'dust'
 
     # Custom colours
     cat ~/.local/state/caelestia/sequences.txt 2> /dev/null
@@ -39,4 +35,15 @@ if status is-interactive
     function mark_prompt_start --on-event fish_prompt
         echo -en "\e]133;A\e\\"
     end
+
+    function s
+        git fetch origin --prune
+        git switch $0
+        git pull origin $0
+    end
 end
+
+eval (ssh-agent -c) > /dev/null
+set -Ux SSH_AUTH_SOCK $SSH_AUTH_SOCK
+set -Ux SSH_AGENT_PID $SSH_AGENT_PID
+set -Ux SSH_AUTH_SOCK $SSH_AUTH_SOCK
