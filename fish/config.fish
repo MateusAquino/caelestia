@@ -10,6 +10,7 @@ if status is-interactive
     alias ls='eza --icons --group-directories-first -1'
     alias gitrmb='git branch | cut -c 3- | gum choose --no-limit | xargs git branch -D'
     alias cwd='pwd'
+    alias shell='env QSG_RENDER_LOOP=threaded QT_QUICK_CONTINUOUS_UPDATE=1 caelestia shell -d'
 
     # Abbrs
     abbr q 'exit'
@@ -35,14 +36,31 @@ if status is-interactive
     function mark_prompt_start --on-event fish_prompt
         echo -en "\e]133;A\e\\"
     end
-    
+
     # Custom fish config
     source ~/.config/caelestia/user-config.fish 2> /dev/null
 
+    function d-db
+      docker run -d --network=host --name db -e POSTGRES_PASSWORD=postgres postgres:18-alpine
+    end
+
+    function d-kafka
+      docker run -d --network=host --name=kafka apache/kafka
+    end
+
+    function d-kafka-ui
+      docker run -d --network=host --name=kafka-ui -e KAFKA_CLUSTERS_0_NAME=local -e KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=localhost:9092 provectuslabs/kafka-ui
+    end
+
     function s
         git fetch origin --prune
-        git switch $0
-        git pull origin $0
+        git switch $argv
+        git pull origin $argv
+    end
+
+    function cs
+        s $argv
+        sudo chown --recursive mafios ./
     end
 end
 
@@ -50,3 +68,4 @@ eval (ssh-agent -c) > /dev/null
 set -Ux SSH_AUTH_SOCK $SSH_AUTH_SOCK
 set -Ux SSH_AGENT_PID $SSH_AGENT_PID
 set -Ux SSH_AUTH_SOCK $SSH_AUTH_SOCK
+
