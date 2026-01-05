@@ -10,6 +10,7 @@ if status is-interactive
     alias ls='eza --icons --group-directories-first -1'
     alias gitrmb='git branch | cut -c 3- | gum choose --no-limit | xargs git branch -D'
     alias cwd='pwd'
+    alias shell='env QSG_RENDER_LOOP=threaded QT_QUICK_CONTINUOUS_UPDATE=1 caelestia shell -d'
 
     # Abbrs
     abbr q 'exit'
@@ -38,8 +39,13 @@ if status is-interactive
 
     function s
         git fetch origin --prune
-        git switch $0
-        git pull origin $0
+        git switch $argv
+        git pull origin $argv
+    end
+
+    function cs
+        s $argv
+        sudo chown --recursive mafios ./
     end
 end
 
@@ -47,3 +53,4 @@ eval (ssh-agent -c) > /dev/null
 set -Ux SSH_AUTH_SOCK $SSH_AUTH_SOCK
 set -Ux SSH_AGENT_PID $SSH_AGENT_PID
 set -Ux SSH_AUTH_SOCK $SSH_AUTH_SOCK
+

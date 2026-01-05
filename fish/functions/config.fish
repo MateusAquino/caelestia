@@ -1,7 +1,8 @@
 function config
     set -l entries \
-        "shell:~/Github/caelestia/fish/config.fish:Fish shell config" \
-        "terminal:~/Github/caelestia/foot/foot.ini:Foot terminal config" \
+        "shell:~/.config/caelestia/shell.json:Caelestia shell config" \
+        "fish:~/Github/caelestia/fish/config.fish:Fish shell config" \
+        "foot:~/Github/caelestia/foot/foot.ini:Foot terminal config" \
         "env:~/Github/caelestia/hypr/hyprland/env.conf:Environment Variables" \
         "hypr-vars:~/Github/caelestia/hypr/variables.conf:Hypr/variables.conf" \
         "hypr-conf:~/Github/caelestia/hypr/hyprland.conf:Hypr/hyprland.conf" \
